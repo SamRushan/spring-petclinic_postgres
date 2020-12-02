@@ -149,9 +149,6 @@
           <dependency>
             <groupId>io.spring.nohttp</groupId>
             <artifactId>nohttp-checkstyle</artifactId>
-            <configuration>
-            <skip>true</skip>
-            </configuration>
             <version>${nohttp-checkstyle.version}</version>
           </dependency>
         </dependencies>
