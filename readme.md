@@ -56,6 +56,7 @@ The following items should be installed in your system:
   * [Spring Tools Suite](https://spring.io/tools) (STS)
   * IntelliJ IDEA
   * [VS Code](https://code.visualstudio.com)
+  +test
 
 ### Steps:
 
