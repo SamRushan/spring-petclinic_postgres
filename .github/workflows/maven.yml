@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Push to Heroku
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/firmtectest.git
+        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/firmtectest.git HEAD:master
 
       - name: Run Database Migrations
         run: heroku run knex migrate:latest --app my-app-name-$ENVIRONMENT
