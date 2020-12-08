@@ -41,11 +41,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Configure Heroku
-        run: heroku config:set GIT_HASH=${GITHUB_SHA} GIT_BRANCH=${GITHUB_REF} --app firmtectest-$ENVIRONMENT
-
       - name: Push to Heroku
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/firmtectest-$ENVIRONMENT.git $GITHUB_SHA:master
+        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/firmtectest.git
 
       - name: Run Database Migrations
         run: heroku run knex migrate:latest --app my-app-name-$ENVIRONMENT
