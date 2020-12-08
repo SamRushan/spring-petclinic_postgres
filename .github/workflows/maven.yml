@@ -30,19 +30,10 @@ jobs:
         postgresql db: databasename-test
         postgresql user: dev
         postgresql password: dev
+    - name: Deploy to heroku  
+      uses: akhileshns/heroku-deploy@v3.6.8
+      with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: "nirushanan.srimurugan@firmtec.ch"
   
-  deploy:  
-    name: Deploy
-    runs-on: ubuntu-latest
-    env:
-      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Push to Heroku
-        run: git push --force https://heroku:$HEROKU_API_KEY@git.heroku.com/firmtectest.git HEAD:refs/heads/master
-
-      - name: Run Database Migrations
-        run: heroku run knex migrate:latest --app my-app-name-$ENVIRONMENT
