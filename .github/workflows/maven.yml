@@ -13,6 +13,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -23,13 +38,16 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
       
-    - name: Setup PostgreSQL
-      uses: harmon758/postgresql-action@v1.0.0
-      with:
-        postgresql version: 11
-        postgresql db: databasename-test
-        postgresql user: dev
-        postgresql password: dev
+    - name: Connect to PostgreSQL
+        # Runs a script that creates a PostgreSQL client, populates
+        # the client with data, and retrieves data
+      run: node client.js
+        # Environment variable used by the `client.js` script to create a new PostgreSQL client.
+      env:
+        # The hostname used to communicate with the PostgreSQL service container
+        POSTGRES_HOST: postgres
+        # The default PostgreSQL port
+        POSTGRES_PORT: 5432
     - name: Deploy to heroku  
       uses: akhileshns/heroku-deploy@v3.6.8
       with:
